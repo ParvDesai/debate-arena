@@ -59,6 +59,11 @@ export default function Profile() {
   }
 
   const { user, recentDebates, winRate } = profile
+  const draws = Math.max(0, (user.gamesPlayed || 0) - (user.wins || 0) - (user.losses || 0))
+  const total = user.gamesPlayed || 1 // avoid divide by zero
+  const winPct = Math.round((user.wins / total) * 100)
+  const drawPct = Math.round((draws / total) * 100)
+  const lossPct = 100 - winPct - drawPct
 
   const getInitial = (name) => name?.charAt(0).toUpperCase() || '?'
 
@@ -100,6 +105,10 @@ export default function Profile() {
             <span className="stat-label">WINS</span>
           </div>
           <div className="stat-card card">
+            <span className="stat-value" style={{ color: 'var(--score-gold)' }}>{draws}</span>
+            <span className="stat-label">DRAWS</span>
+          </div>
+          <div className="stat-card card">
             <span className="stat-value" style={{ color: 'var(--against-primary)' }}>{user.losses || 0}</span>
             <span className="stat-label">LOSSES</span>
           </div>
@@ -109,7 +118,7 @@ export default function Profile() {
           </div>
           <div className="stat-card card">
             <span className="stat-value" style={{ color: 'var(--score-gold)' }}>{user.totalScore || 0}</span>
-            <span className="stat-label">TOTAL SCORE</span>
+            <span className="stat-label">SCORE</span>
           </div>
           <div className="stat-card card">
             <span className="stat-value">{user.gamesPlayed || 0}</span>
@@ -117,17 +126,17 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Win Rate Bar */}
+        {/* Win/Draw/Loss Bar */}
         <div className="profile-bar-wrap card">
           <div className="profile-bar-labels">
             <span style={{ color: 'var(--for-primary)' }}>🔥 Wins — {user.wins || 0}</span>
+            <span style={{ color: 'var(--score-gold)' }}>⚖️ Draws — {draws}</span>
             <span style={{ color: 'var(--against-primary)' }}>Losses — {user.losses || 0} ❄️</span>
           </div>
           <div className="profile-bar">
-            <div
-              className="profile-bar-fill"
-              style={{ width: `${winRate}%` }}
-            />
+            <div className="profile-bar-win" style={{ width: `${winPct}%` }} />
+            <div className="profile-bar-draw" style={{ width: `${drawPct}%` }} />
+            <div className="profile-bar-loss" style={{ width: `${lossPct}%` }} />
           </div>
         </div>
 
