@@ -2,7 +2,7 @@
 
 A **real-time AI-powered debate platform** where users debate each other or challenge an AI opponent. Arguments are scored live by LLaMA 3.3, with spectator mode, audience voting, and full replay support.
 
-> 🔴 **[Live Demo](https://your-app.vercel.app)** &nbsp;|&nbsp; 🎥 **[Video Walkthrough](#)** &nbsp;|&nbsp; 📄 **[Backend API](https://your-backend.onrender.com)**
+> 🔴 **[Live Demo](https://debate-arena-frontend-three.vercel.app)** &nbsp;|&nbsp; 📄 **[Backend API](https://debate-arena-backend-0var.onrender.com)**
 
 ---
 
