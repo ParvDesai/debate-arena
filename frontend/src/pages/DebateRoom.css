@@ -1,0 +1,227 @@
+.debate-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.debate-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  width: 100%;
+  gap: 12px;
+  /* Fill viewport minus navbar */
+  height: calc(100vh - 60px);
+  position: relative;
+}
+
+.debate-loading {
+  min-height: 100vh;
+}
+
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: calc(100vh - 60px);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  letter-spacing: 1px;
+}
+
+/* Zone 1 — Top Bar */
+.debate-top-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.top-bar-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.top-bar-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.7rem;
+}
+
+/* Error */
+.debate-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Zone 2 — Feed */
+.debate-feed-wrapper {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Zone 3 — Bottom */
+.debate-bottom {
+  flex-shrink: 0;
+}
+
+.debate-ended-banner {
+  text-align: center;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Paused Overlay */
+.debate-paused-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 5, 10, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.paused-icon {
+  font-size: 3rem;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.paused-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #a855f7; /* neon purple */
+  text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+  font-family: var(--font-display);
+}
+
+.paused-text {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.5px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ── AI Cooldown Banner ── */
+.ai-cooldown-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(168, 85, 247, 0.12));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+  animation: cooldown-glow 2s ease-in-out infinite;
+}
+
+@keyframes cooldown-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(139, 92, 246, 0.15); }
+  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+}
+
+.cooldown-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.cooldown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cooldown-text strong {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #c4b5fd;
+}
+
+.cooldown-text span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.cooldown-seconds {
+  font-weight: 700;
+  color: #a78bfa;
+  font-variant-numeric: tabular-nums;
+}
+
+.cooldown-progress {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cooldown-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+  border-radius: 3px;
+  transition: width 1s linear;
+}
+
+@media (max-width: 768px) {
+  .debate-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .top-bar-side {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .ai-cooldown-banner {
+    flex-wrap: wrap;
+  }
+  .cooldown-progress {
+    width: 100%;
+    order: 3;
+  }
+}

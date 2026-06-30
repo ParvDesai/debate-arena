@@ -1,0 +1,37 @@
+# Priority Build Order
+
+- [x] Phase 1: Shared Components
+  - [x] `Navbar`
+  - [x] `ProtectedRoute`
+  - [x] `AvatarVS`
+  - [x] `ScoreBar`
+- [x] Phase 2: Auth Pages
+  - [x] `Login`
+  - [x] `Register`
+- [x] Phase 3: Lobby Hub
+  - [x] `RoomCard`
+  - [x] `CreateRoomModal`
+  - [x] `TopicChip`
+  - [x] `Lobby` (Page)
+- [x] Phase 4: Debate Core
+  - [x] `ScoreHeader`
+  - [x] `TurnIndicator`
+  - [x] `CountdownTimer`
+  - [x] `ArgumentCard` & `ArgumentFeed`
+  - [x] `ScoringLoader`
+  - [x] `ArgumentInput`
+  - [x] `AudienceVoteBar`
+  - [x] `SpectatorBadge`
+  - [x] `VictoryOverlay`
+  - [x] `DebateRoom` (Page)
+- [x] Phase 5: Alternate Modes & Stats
+  - [x] `SoloMode` (Page)
+  - [x] `Leaderboard` (Page)
+  - [x] `Replay` (Page)
+- [x] Phase 6: App Assembly
+  - [x] `App.jsx` Routing
+  - [x] `main.jsx`
+  - [x] `index.html` Metadata
+- [x] Phase 7: Verification
+  - [x] Fix Vite/Tailwind v4 CSS import bug
+  - [x] Verify Vite build success

@@ -1,0 +1,49 @@
+.turn-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.turn-for {
+  background: var(--for-bg);
+  border: 1px solid var(--for-border);
+  color: var(--for-primary);
+}
+
+.turn-against {
+  background: var(--against-bg);
+  border: 1px solid var(--against-border);
+  color: var(--against-primary);
+}
+
+.turn-mine {
+  animation: pulse-turn 2s ease-in-out infinite;
+}
+
+@keyframes pulse-turn {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.2); }
+}
+
+.turn-icon {
+  font-size: 1.1rem;
+}
+
+.turn-text {
+  text-transform: uppercase;
+}
+
+.turn-round {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+}

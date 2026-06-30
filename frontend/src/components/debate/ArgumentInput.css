@@ -1,0 +1,55 @@
+.argument-input {
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.input-disabled {
+  opacity: 0.6;
+}
+
+.arg-textarea {
+  width: 100%;
+  min-height: 80px;
+  max-height: 200px;
+  padding: 14px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.arg-textarea:focus {
+  border-color: var(--accent-purple);
+}
+
+.arg-textarea:disabled {
+  cursor: not-allowed;
+}
+
+.arg-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.arg-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.char-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.char-warn {
+  color: var(--score-gold);
+}

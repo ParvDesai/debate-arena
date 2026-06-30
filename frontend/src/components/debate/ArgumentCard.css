@@ -1,0 +1,91 @@
+.argument-card {
+  padding: 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+
+.arg-for {
+  background: var(--for-bg);
+  border: 1px solid var(--for-border);
+}
+
+.arg-against {
+  background: var(--against-bg);
+  border: 1px solid var(--against-border);
+}
+
+.arg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.arg-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.arg-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.arg-username {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.arg-turn {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.arg-total-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.arg-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.arg-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.arg-feedback {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.4;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}

@@ -1,0 +1,124 @@
+.victory-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.victory-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 48px 40px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.victory-header {
+  margin-bottom: 32px;
+}
+
+.victory-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.victory-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+
+.victory-subtitle {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+}
+
+.victory-scores {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+  padding: 20px;
+  background: var(--bg-input);
+  border-radius: var(--radius-lg);
+}
+
+.victory-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vs-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.vs-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.for-score .vs-value { color: var(--for-primary); }
+.against-score .vs-value { color: var(--against-primary); }
+
+.vs-divider {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.victory-audience {
+  margin-bottom: 32px;
+}
+
+.audience-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.audience-counts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.aud-for { color: var(--for-primary); }
+.aud-against { color: var(--against-primary); }
+.aud-sep { color: var(--text-muted); }
+
+.victory-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.victory-actions .btn {
+  width: 100%;
+  padding: 14px;
+}

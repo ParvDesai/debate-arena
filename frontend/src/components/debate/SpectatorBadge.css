@@ -1,0 +1,25 @@
+.spectator-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.spectator-icon {
+  font-size: 0.85rem;
+}
+
+.spectator-count {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.spectator-label {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
