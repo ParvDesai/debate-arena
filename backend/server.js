@@ -19,6 +19,9 @@ const allowedOrigins = [
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
+// Trust the first proxy (required on Render/Heroku so rate limiting uses real client IPs)
+app.set('trust proxy', 1)
+
 // Security headers
 app.use(helmet());
 
@@ -48,7 +51,7 @@ const apiLimiter = rateLimit({
 // Stricter limiter for auth routes (prevent brute force)
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 20,                    // max 20 login/register attempts
+    max: 50,                    // 50 login/register attempts per 15 min
     standardHeaders: true,
     legacyHeaders: false,
     message: { message: 'Too many auth attempts, please try again in 15 minutes.' }
