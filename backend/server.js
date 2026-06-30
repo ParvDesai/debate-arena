@@ -5,6 +5,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const http = require('http');
 const { Server } = require('socket.io');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const setupSocket = require('./socket/debateHandler');
 
 const app = express();
@@ -17,6 +19,44 @@ const allowedOrigins = [
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
+// Security headers
+app.use(helmet());
+
+// CORS
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, curl, Postman)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+}));
+
+app.use(express.json());
+app.use(cookieParser());
+
+// Rate limiting — general API
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 200,                   // max 200 requests per window
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { message: 'Too many requests, please try again later.' }
+});
+
+// Stricter limiter for auth routes (prevent brute force)
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 20,                    // max 20 login/register attempts
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { message: 'Too many auth attempts, please try again in 15 minutes.' }
+});
+
+app.use('/api/', apiLimiter);
+app.use('/api/auth', authLimiter);
+
 const io = new Server(server, {
     cors: {
         origin: allowedOrigins,
@@ -24,25 +64,13 @@ const io = new Server(server, {
     }
 });
 
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(null, true); // Allow all in dev
-        }
-    },
-    credentials: true
-}));
-app.use(express.json());
-app.use(cookieParser());
-
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/rooms', require('./routes/room'));
 app.use('/api/arguments', require('./routes/argument'));
 app.use('/api/leaderboard', require('./routes/leaderboard'));
 app.use('/api/topics', require('./routes/topics'));
+app.use('/api/users', require('./routes/users'));
 
 app.get('/', (req, res) => {
     res.json({ message: 'DebateArena API running' });

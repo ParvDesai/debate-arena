@@ -6,6 +6,7 @@ import SoloMode from './pages/SoloMode'
 import DebateRoom from './pages/DebateRoom'
 import Leaderboard from './pages/Leaderboard'
 import Replay from './pages/Replay'
+import Profile from './pages/Profile'
 import ProtectedRoute from './components/shared/ProtectedRoute'
 
 export default function App() {
@@ -31,6 +32,9 @@ export default function App() {
         } />
         <Route path="/replay/:id" element={
           <ProtectedRoute><Replay /></ProtectedRoute>
+        } />
+        <Route path="/profile/:username" element={
+          <ProtectedRoute><Profile /></ProtectedRoute>
         } />
 
         {/* Default */}
