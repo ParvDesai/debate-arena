@@ -58,6 +58,7 @@ export default function Leaderboard() {
                   <th>RANK</th>
                   <th>GLADIATOR</th>
                   <th>WINS</th>
+                  <th>DRAWS</th>
                   <th>LOSSES</th>
                   <th>WIN RATE</th>
                   <th>GAMES</th>
@@ -82,6 +83,7 @@ export default function Leaderboard() {
                       </div>
                     </td>
                     <td className="lb-wins-cell">{user.wins || 0}</td>
+                    <td className="lb-draws-cell">{Math.max(0, (user.gamesPlayed || 0) - (user.wins || 0) - (user.losses || 0))}</td>
                     <td className="lb-losses-cell">{user.losses || 0}</td>
                     <td className="lb-rate-cell">{getWinRate(user)}</td>
                     <td className="lb-games-cell">{user.gamesPlayed || 0}</td>

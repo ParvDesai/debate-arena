@@ -108,6 +108,12 @@
   font-weight: 600;
 }
 
+.lb-draws-cell {
+  color: var(--score-gold);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
 .lb-losses-cell {
   color: #ef4444;
   font-family: var(--font-display);
