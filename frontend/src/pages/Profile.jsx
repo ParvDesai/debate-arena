@@ -82,7 +82,7 @@ export default function Profile() {
   return (
     <div className="profile-page">
       <Navbar />
-      <div className="profile-content">
+      <div className="profile-content page-enter">
 
         {/* Hero Card */}
         <div className="profile-hero card">

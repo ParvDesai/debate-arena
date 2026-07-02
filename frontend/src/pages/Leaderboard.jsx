@@ -37,7 +37,7 @@ export default function Leaderboard() {
   return (
     <div className="lb-page">
       <Navbar />
-      <div className="lb-content">
+      <div className="lb-content page-enter">
         <div className="lb-page-header">
           <span className="lb-icon">🏆</span>
           <h1 className="lb-page-title gradient-text">LEADERBOARD</h1>

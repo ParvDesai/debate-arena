@@ -1,6 +1,6 @@
 .argument-feed {
   display: flex;
-  gap: 16px;
+  gap: 0;
   flex: 1;
   min-height: 0;
   overflow: hidden;
@@ -53,12 +53,14 @@
   background: var(--for-bg);
   color: var(--for-primary);
   border: 1px solid var(--for-border);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.08);
 }
 
 .against-header {
   background: var(--against-bg);
   color: var(--against-primary);
   border: 1px solid var(--against-border);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.08);
 }
 
 .column-icon {
@@ -71,10 +73,35 @@
   padding-right: 4px;
 }
 
+/* Glowing divider between FOR and AGAINST */
 .feed-divider {
-  width: 1px;
-  background: var(--border-subtle);
+  width: 2px;
   flex-shrink: 0;
+  position: relative;
+  margin: 0 8px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(124, 58, 237, 0.3) 20%,
+    rgba(6, 182, 212, 0.4) 50%,
+    rgba(124, 58, 237, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+.feed-divider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(124, 58, 237, 0.15) 20%,
+    rgba(6, 182, 212, 0.2) 50%,
+    rgba(124, 58, 237, 0.15) 80%,
+    transparent 100%
+  );
+  filter: blur(6px);
 }
 
 /* AI Thinking */
@@ -123,6 +150,25 @@
   }
   .feed-divider {
     width: 100%;
-    height: 1px;
+    height: 2px;
+    margin: 8px 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(124, 58, 237, 0.3) 20%,
+      rgba(6, 182, 212, 0.4) 50%,
+      rgba(124, 58, 237, 0.3) 80%,
+      transparent 100%
+    );
+  }
+  .feed-divider::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(124, 58, 237, 0.15) 20%,
+      rgba(6, 182, 212, 0.2) 50%,
+      rgba(124, 58, 237, 0.15) 80%,
+      transparent 100%
+    );
   }
 }

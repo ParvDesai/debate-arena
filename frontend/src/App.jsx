@@ -12,6 +12,12 @@ import ProtectedRoute from './components/shared/ProtectedRoute'
 export default function App() {
   return (
     <Router>
+      {/* Animated background — visible on every page */}
+      <div className="app-bg" />
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+
       <Routes>
         {/* Auth */}
         <Route path="/login" element={<Login />} />

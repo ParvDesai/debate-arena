@@ -79,6 +79,14 @@
   font-weight: 700;
   font-size: 0.85rem;
   color: white;
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.user-avatar:hover {
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.5);
+  transform: scale(1.1);
 }
 
 .user-name {
@@ -86,6 +94,12 @@
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.user-name:hover {
+  color: var(--accent-purple);
 }
 
 .btn-logout {
