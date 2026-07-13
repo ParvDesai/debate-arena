@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { sendVerificationEmail } = require('../services/mail');
 
 exports.register = async (req, res) => {
     try {
@@ -39,25 +38,20 @@ exports.register = async (req, res) => {
 
         const passwordHash = await bcrypt.hash(password, 10);
         
-        // Generate a 6-digit verification code
-        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-        const verificationCodeExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
-
         const user = await User.create({ 
             username, 
             email: email.toLowerCase(), 
             passwordHash,
-            isVerified: false,
-            verificationCode,
-            verificationCodeExpires
+            isVerified: true
         });
 
-        // Send verification email
-        await sendVerificationEmail(user.email, user.username, verificationCode);
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
 
         res.status(201).json({ 
-            message: 'Registered successfully. Please check your email for a verification code.', 
-            email: user.email 
+            message: 'Registered successfully', 
+            token, 
+            user: { _id: user._id, username: user.username, email: user.email } 
         });
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });
@@ -87,106 +81,10 @@ exports.login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.passwordHash);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-        // Check if user is verified
-        if (!user.isVerified) {
-            // Generate a new code just in case they didn't get the first one or it expired
-            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-            user.verificationCode = verificationCode;
-            user.verificationCodeExpires = new Date(Date.now() + 15 * 60 * 1000);
-            await user.save();
-            await sendVerificationEmail(user.email, user.username, verificationCode);
-
-            return res.status(403).json({ 
-                message: 'Your account is not verified. A verification code has been sent to your email.', 
-                isVerified: false, 
-                email: user.email 
-            });
-        }
-
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
         res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
 
         res.json({ message: 'Logged in successfully', token, user: { _id: user._id, username: user.username, email: user.email } });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err.message });
-    }
-};
-
-exports.verify = async (req, res) => {
-    try {
-        let { email, code } = req.body;
-        email = typeof email === 'string' ? email.trim().toLowerCase() : '';
-        code = typeof code === 'string' ? code.trim() : '';
-
-        if (!email || !code) {
-            return res.status(400).json({ message: 'Email and verification code are required' });
-        }
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
-        if (user.isVerified) {
-            // Already verified, issue token to log them in
-            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-            res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
-            return res.json({ message: 'Email already verified', token, user: { _id: user._id, username: user.username, email: user.email } });
-        }
-
-        // Validate code & expiration
-        if (user.verificationCode !== code) {
-            return res.status(400).json({ message: 'Invalid verification code' });
-        }
-
-        if (new Date() > user.verificationCodeExpires) {
-            return res.status(400).json({ message: 'Verification code has expired. Please request a new one.' });
-        }
-
-        user.isVerified = true;
-        user.verificationCode = undefined;
-        user.verificationCodeExpires = undefined;
-        await user.save();
-
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
-
-        res.json({ 
-            message: 'Account verified successfully!', 
-            token, 
-            user: { _id: user._id, username: user.username, email: user.email } 
-        });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err.message });
-    }
-};
-
-exports.resendCode = async (req, res) => {
-    try {
-        let { email } = req.body;
-        email = typeof email === 'string' ? email.trim().toLowerCase() : '';
-
-        if (!email) {
-            return res.status(400).json({ message: 'Email address is required' });
-        }
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
-        if (user.isVerified) {
-            return res.status(400).json({ message: 'Email is already verified' });
-        }
-
-        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-        user.verificationCode = verificationCode;
-        user.verificationCodeExpires = new Date(Date.now() + 15 * 60 * 1000);
-        await user.save();
-
-        await sendVerificationEmail(user.email, user.username, verificationCode);
-
-        res.json({ message: 'Verification code resent successfully!' });
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });
     }

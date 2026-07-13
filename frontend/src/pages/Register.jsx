@@ -94,7 +94,7 @@ export default function Register() {
     setLoading(true)
     try {
       await register(cleanUsername, cleanEmail, password)
-      navigate('/verify', { state: { email: cleanEmail } })
+      navigate('/lobby')
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed')
     } finally {

@@ -33,11 +33,6 @@ export default function Login() {
       await login(cleanEmail, password)
       navigate('/lobby')
     } catch (err) {
-      if (err.response?.status === 403 && err.response?.data?.isVerified === false) {
-        const emailToVerify = err.response.data.email || cleanEmail
-        navigate('/verify', { state: { email: emailToVerify } })
-        return
-      }
       setError(err.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
