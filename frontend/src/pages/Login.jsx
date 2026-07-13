@@ -6,6 +6,7 @@ import './Auth.css'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login, user } = useAuth()
@@ -20,11 +21,23 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    
+    const cleanEmail = email.trim()
+    if (!cleanEmail || !password) {
+      setError('Please fill in all fields.')
+      return
+    }
+
     setLoading(true)
     try {
-      await login(email, password)
+      await login(cleanEmail, password)
       navigate('/lobby')
     } catch (err) {
+      if (err.response?.status === 403 && err.response?.data?.isVerified === false) {
+        const emailToVerify = err.response.data.email || cleanEmail
+        navigate('/verify', { state: { email: emailToVerify } })
+        return
+      }
       setError(err.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
@@ -59,7 +72,7 @@ export default function Login() {
         {error && <div className="auth-error">{error}</div>}
 
         <div className="auth-field">
-          <label className="auth-label">EMAIL ADDRESS</label>
+          <label className="auth-label">EMAIL ADDRESS OR USERNAME</label>
           <input
             id="login-email"
             type="text"
@@ -73,15 +86,25 @@ export default function Login() {
 
         <div className="auth-field">
           <label className="auth-label">SECRET KEY</label>
-          <input
-            id="login-password"
-            type="password"
-            className="input"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-input-wrapper">
+            <input
+              id="login-password"
+              type={showPassword ? 'text' : 'password'}
+              className="input input-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="password-toggle-btn"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? '👁️' : '👁️‍🗨️'}
+            </button>
+          </div>
         </div>
 
         <button

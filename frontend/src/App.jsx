@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Verify from './pages/Verify'
 import Lobby from './pages/Lobby'
 import SoloMode from './pages/SoloMode'
 import DebateRoom from './pages/DebateRoom'
@@ -22,6 +23,7 @@ export default function App() {
         {/* Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify" element={<Verify />} />
 
         {/* Protected */}
         <Route path="/lobby" element={
