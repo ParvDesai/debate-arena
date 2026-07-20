@@ -1,7 +1,7 @@
 const Groq = require('groq-sdk');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-const MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+const MODEL = 'llama-3.1-8b-instant';
 
 async function scoreArgument(topic, side, text, priorArguments = []) {
     const context = priorArguments.length > 0

@@ -15,7 +15,7 @@ Write a compelling counter-argument for the AGAINST side. Be persuasive, use evi
 
     try {
         const result = await groq.chat.completions.create({
-            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+            model: 'llama-3.1-8b-instant',
             messages: [{ role: 'user', content: 'Say hello in exactly 3 words' }],
             max_tokens: 20,
         });
